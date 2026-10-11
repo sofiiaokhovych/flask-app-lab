@@ -4,6 +4,64 @@
 
 <h1>Моє резюме</h1>
 
-<p>Вітаю на сторінці мого резюме!</p>
+<nav class="resume-nav">
+    <a href="#about">Про себе</a>
+    <a href="#education">Освіта</a>
+    <a href="#skills">Навички</a>
+    <a href="#technologies">Технології</a>
+    <a href="#projects">Проєкти</a>
+</nav>
+
+<section id="about">
+    <h2>Про себе</h2>
+
+    <img src="{{ url_for('static', filename='images/profile.png') }}"
+         alt="Зображення профілю" class="profile-image">
+
+    <p> Мене звати Софія Охович. Я навчаюся за спеціальністю "Інженерія програмного забезпечення". 
+        Цікавлюся програмуванням, веброзробкою та сучасними інформаційними технологіями.</p>
+
+</section>
+
+<section id="education">
+    <h2>Освіта</h2>
+
+    <p> Карпатський національний університет імені Василя Стефаника. </p>
+
+    <p>Спеціальність: Інженерія програмного забезпечення.</p>
+
+</section>
+
+<section id="skills">
+    <h2>Навички</h2>
+
+    <ul>
+        <li>Основи програмування</li>
+        <li>Робота з базами даних</li>
+        <li>Створення вебсторінок</li>
+        <li>Робота з Git та GitHub</li>
+    </ul>
+</section>
+
+<section id="technologies">
+    <h2>Технології</h2>
+
+    <ul>
+        <li>Python</li>
+        <li>HTML та CSS</li>
+        <li>Java</li>
+        <li>PHP</li>
+        <li>Flask</li>
+    </ul>
+</section>
+
+<section id="projects">
+    <h2>Проєкти</h2>
+
+    <p> Навчальні проєкти з Python, Java та PHP.
+        Створення простих вебдодатків, робота з формами,
+        файлами та базами даних.</p>
+
+</section>
 
 {% endblock %}
