@@ -1,0 +1,133 @@
+body {
+    background-color: #f5f5fa;
+    font-family: Arial, sans-serif;
+    color: #333;
+    padding-bottom: 80px;
+    min-height: 100vh;
+    margin: 0;
+}
+
+main {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    min-height: 75vh;
+    flex: 1;
+}
+
+h1 {
+    color: #504080;
+}
+
+h2 {
+    color: #6850a0;
+    margin-bottom: 15px;
+}
+
+section {
+    padding: 20px;
+    border-bottom: 1px solid #ddd;
+}
+
+.profile-image {
+    width: 160px;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 50%;
+    display: block;
+    margin: 20px auto;
+}
+
+.btn-primary {
+    background-color: #6850a0;
+    border-color: #6850a0;
+}
+
+.btn-primary:hover {
+    background-color: #504080;
+    border-color: #504080;
+}
+
+.resume-nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    padding: 15px;
+    margin: 0 0 25px;
+    background-color: #eee8fa;
+    border: 1px solid #d8c9f0;
+    border-radius: 10px;
+}
+
+.resume-nav a {
+    display: inline-block;
+    padding: 8px 14px;
+    color: #504080;
+    background-color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.resume-nav a:hover {
+    color: white;
+    background-color: #6850a0;
+}
+
+.about-content {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.about-content .profile-image {
+    flex-shrink: 0;
+    width: 180px;
+    height: 180px;
+    margin: 0;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.about-text {
+    flex: 1;
+}
+
+header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    min-height: 60px;
+    z-index: 999;
+}
+
+@media (max-width: 600px) {
+    .about-content {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+    }
+
+    .about-content .profile-image {
+        width: 140px;
+        height: 140px;
+        margin: 0 auto;
+    }
+
+    .resume-nav {
+        gap: 8px;
+        padding: 10px;
+    }
+
+    .resume-nav a {
+        padding: 7px 10px;
+    }
+}

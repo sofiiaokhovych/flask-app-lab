@@ -2,29 +2,54 @@
 
 {% block content %}
 
-<h1>Контакти</h1>
+<h1 class="text-center mb-4">Контакти</h1>
+
+<section class="contact-info mb-4">
+    <h2>Мої контакти</h2>
+    <p><strong>Ім'я:</strong> Софія Охович</p>
+
+    <p><strong>Email:</strong>
+        <a href="mailto:sofiia.okhovych.24@pnu.edu.ua">
+            sofiia.okhovych.24@pnu.edu.ua
+        </a>
+    </p>
+
+    <p><strong>GitHub:</strong>
+        <a href="https://github.com/sofiiaokhovych"
+           target="_blank" rel="noopener noreferrer">
+            Мій профіль GitHub
+        </a>
+    </p>
+</section>
+
+<section class="mb-4">
+    <h2>Зв'язатися зі мною</h2>
+    <p>Ви можете залишити повідомлення через форму нижче.</p>
+</section>
 
 <section>
-    <h2>Зв'язатися зі мною</h2>
-    <p>Ви можете заповнити форму нижче.</p>
+    <h2>Форма зворотного зв'язку</h2>
 
     <form>
-        <div>
-            <label for="name">Ім'я:</label>
-            <input type="text" id="name" name="name" required>
+        <div class="mb-3">
+            <label for="name" class="form-label">Ім'я</label>
+            <input type="text" class="form-control" id="name" name="name" required>
         </div>
 
-        <div>
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" name="email" required>
         </div>
 
-        <div>
-            <label for="message">Повідомлення:</label>
-            <textarea id="message" name="message" rows="5" required></textarea>
+        <div class="mb-3">
+            <label for="message" class="form-label">
+                Повідомлення
+            </label>
+
+            <textarea class="form-control" id="message" name="message" rows="4" required></textarea>
         </div>
 
-        <button type="button">Надіслати</button>
+        <button type="button" class="btn btn-primary">Надіслати</button>
     </form>
 </section>
 

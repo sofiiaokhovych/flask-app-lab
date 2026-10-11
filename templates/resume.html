@@ -2,8 +2,7 @@
 
 {% block content %}
 
-<h1>Моє резюме</h1>
-
+<h1 class="text-center mb-4">Моє резюме</h1>
 <nav class="resume-nav">
     <a href="#about">Про себе</a>
     <a href="#education">Освіта</a>
@@ -12,29 +11,28 @@
     <a href="#projects">Проєкти</a>
 </nav>
 
-<section id="about">
+<section id="about" class="mb-4">
     <h2>Про себе</h2>
 
-    <img src="{{ url_for('static', filename='images/profile.png') }}"
-         alt="Зображення профілю" class="profile-image">
+    <div class="about-content">
+        <img src="{{ url_for('static', filename='images/profile.png') }}"
+             alt="Зображення профілю" class="profile-image">
 
-    <p> Мене звати Софія Охович. Я навчаюся за спеціальністю "Інженерія програмного забезпечення". 
-        Цікавлюся програмуванням, веброзробкою та сучасними інформаційними технологіями.</p>
-
+        <div class="about-text">
+            <p>Мене звати Софія Охович. Я навчаюся за спеціальністю «Інженерія програмного забезпечення».
+                Цікавлюся програмуванням, веброзробкою та сучасними інформаційними технологіями.</p>
+        </div>
+    </div>
 </section>
 
-<section id="education">
+<section id="education" class="mb-4">
     <h2>Освіта</h2>
-
-    <p> Карпатський національний університет імені Василя Стефаника. </p>
-
+    <p>Карпатський національний університет імені Василя Стефаника.</p>
     <p>Спеціальність: Інженерія програмного забезпечення.</p>
-
 </section>
 
-<section id="skills">
+<section id="skills" class="mb-4">
     <h2>Навички</h2>
-
     <ul>
         <li>Основи програмування</li>
         <li>Робота з базами даних</li>
@@ -43,9 +41,8 @@
     </ul>
 </section>
 
-<section id="technologies">
+<section id="technologies" class="mb-4">
     <h2>Технології</h2>
-
     <ul>
         <li>Python</li>
         <li>HTML та CSS</li>
@@ -55,13 +52,11 @@
     </ul>
 </section>
 
-<section id="projects">
+<section id="projects" class="mb-4">
     <h2>Проєкти</h2>
-
-    <p> Навчальні проєкти з Python, Java та PHP.
-        Створення простих вебдодатків, робота з формами,
-        файлами та базами даних.</p>
-
+    <p>Навчальні проєкти з Python, Java та PHP.
+        Створення простих вебдодатків, робота з формами, файлами та базами даних.</p>
+        
 </section>
 
 {% endblock %}
