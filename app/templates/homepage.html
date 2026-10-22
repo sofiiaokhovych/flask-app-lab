@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}Homepage{% endblock %}
+
+{% block content %}
+    <h1>Homepage</h1>
+    <p>Welcome to my Flask application!</p>
+
+    {% if agent %}
+        <p>Your browser: {{ agent }}</p>
+    {% endif %}
+{% endblock %}

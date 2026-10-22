@@ -109,6 +109,69 @@ footer {
     z-index: 999;
 }
 
+.home-section {
+    padding: 20px 0;
+}
+
+.home-intro {
+    padding: 35px;
+    background-color: #f5f5fa;
+    border-radius: 10px;
+    margin-bottom: 25px;
+}
+
+.home-label {
+    color: #6850a0;
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.home-intro h2 {
+    color: #504080;
+    font-size: 32px;
+    margin-bottom: 15px;
+}
+
+.home-intro p {
+    line-height: 1.7;
+}
+
+.home-button {
+    display: inline-block;
+    background-color: #6850a0;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 6px;
+    text-decoration: none;
+    margin-top: 10px;
+}
+
+.home-button:hover {
+    background-color: #504080;
+}
+
+.home-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+}
+
+.home-card {
+    padding: 20px;
+    background-color: white;
+    border: 1px solid #e2deed;
+    border-radius: 10px;
+}
+
+.home-card h3 {
+    color: #504080;
+}
+
+.home-card p {
+    line-height: 1.6;
+}
+
 @media (max-width: 600px) {
     .about-content {
         flex-direction: column;
@@ -129,5 +192,12 @@ footer {
 
     .resume-nav a {
         padding: 7px 10px;
+    }
+        .home-intro {
+        padding: 20px;
+    }
+
+    .home-intro h2 {
+        font-size: 26px;
     }
 }
