@@ -9,4 +9,15 @@
     {% if agent %}
         <p>Your browser: {{ agent }}</p>
     {% endif %}
+    
+    <h2>Users Blueprint</h2>
+    <p>
+        Перейди до сторінки користувачів, щоб переглянути
+        приклади привітання.
+    </p>
+
+    <a href="{{ url_for('users.greetings', name='John') }}"
+       class="btn btn-primary">
+        Відкрити Users
+    </a>
 {% endblock %}
