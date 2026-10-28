@@ -12,6 +12,10 @@
 
     <div class="profile-content">
         <p>Тут ви можете отримати інформацію та вийти з системи.</p>
+
+        <form action="{{ url_for('users.logout') }}" method="POST">
+            <button type="submit" class="btn btn-danger">Вийти</button>
+        </form>
     </div>
 </div>
 

@@ -46,3 +46,8 @@ def profile():
         return redirect(url_for("users.login"))
 
     return render_template("profile.html", username=username)
+
+@user_bp.route("/logout", methods=["POST"])
+def logout():
+    session.pop("username", None)
+    return redirect(url_for("users.login"))
