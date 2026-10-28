@@ -39,4 +39,10 @@ def login():
 
 @user_bp.route("/profile")
 def profile():
-    return render_template("profile.html", username="user1")
+    username = session.get("username")
+
+    if username is None:
+        flash("Please log in first!", "danger")
+        return redirect(url_for("users.login"))
+
+    return render_template("profile.html", username=username)
