@@ -1,2 +1,2 @@
-SECRET_KEY = "lab3-secret-key"
+SECRET_KEY = "lab4-secret-key"
 DEBUG = True

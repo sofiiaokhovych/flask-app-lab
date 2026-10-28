@@ -1,5 +1,8 @@
-from flask import request, redirect, url_for, render_template
+from flask import request, redirect, url_for, render_template, session, flash
 from . import user_bp
+
+CORRECT_USERNAME = "user1"
+CORRECT_PASSWORD = "12345"
 
 @user_bp.route("/hi/<string:name>")
 def greetings(name):
@@ -17,3 +20,12 @@ def admin():
                      )
     print(to_url)
     return redirect(to_url)
+
+@user_bp.route("/login", methods=["GET", "POST"])
+def login():
+    return render_template("login.html")
+
+
+@user_bp.route("/profile")
+def profile():
+    return render_template("profile.html", username="user1")
