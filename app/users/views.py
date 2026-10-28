@@ -23,8 +23,19 @@ def admin():
 
 @user_bp.route("/login", methods=["GET", "POST"])
 def login():
-    return render_template("login.html")
+    if request.method == "POST":
+        username = request.form.get("username")
+        password = request.form.get("password")
 
+        if username == CORRECT_USERNAME and password == CORRECT_PASSWORD:
+            session["username"] = username
+            flash("Login successful!", "success")
+            return redirect(url_for("users.profile"))
+        else:
+            flash("Wrong data! Try again!", "danger")
+            return redirect(url_for("users.login"))
+
+    return render_template("login.html")
 
 @user_bp.route("/profile")
 def profile():
