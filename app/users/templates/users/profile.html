@@ -2,9 +2,10 @@
 
 {% block title %}Profile{% endblock %}
 
-{% block content %}
+{% block body_class %}profile-page-{{ theme }}{% endblock %}
 
-<div class="profile-container">
+{% block content %}
+<div class="profile-container {% if theme == 'dark' %}profile-dark{% else %}profile-light{% endif %}">
     <div class="profile-header">
         <h1>Ласкаво просимо до сторінки</h1>
         <h3>{{ username }}!</h3>
@@ -16,6 +17,20 @@
         <form action="{{ url_for('users.logout') }}" method="POST">
             <button type="submit" class="btn btn-danger">Вийти</button>
         </form>
+        
+        <div class="theme-switcher">
+            <h2>Кольорова схема</h2>
+
+            <a href="{{ url_for('users.change_theme', theme='light') }}"
+                class="btn btn-outline-primary">
+                Світла тема
+            </a>
+
+            <a href="{{ url_for('users.change_theme', theme='dark') }}"
+                class="btn btn-outline-secondary">
+                Темна тема
+            </a>
+        </div>
         <hr>
 
         <h2>Додати кукі</h2>
@@ -88,5 +103,4 @@
         </div>
     </div>
 </div>
-
 {% endblock %}
