@@ -310,6 +310,39 @@ footer {
     padding: 25px;
 }
 
+.profile-content h2 {
+    color: #504080;
+    font-size: 22px;
+    margin-bottom: 20px;
+}
+
+.profile-content hr {
+    margin: 30px 0;
+    border-color: #dddddd;
+}
+
+.profile-content .form-label {
+    font-weight: 500;
+}
+
+.profile-content .btn {
+    border-radius: 6px;
+}
+
+.profile-content table {
+    margin-top: 15px;
+}
+
+.profile-content th {
+    background-color: #f0edf8;
+    color: #504080;
+}
+
+.cookie-value {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
 @media (max-width: 600px) {
     .about-content {
         flex-direction: column;
