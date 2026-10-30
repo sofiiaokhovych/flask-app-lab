@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% from "form_macros.html" import render_field %}
+
 {% block content %}
 
 <h1 class="text-center mb-4">Контакти</h1>
@@ -27,29 +29,19 @@
     <p>Ви можете залишити повідомлення через форму нижче.</p>
 </section>
 
-<section>
+<section class="contact-form mx-auto mb-4">
     <h2>Форма зворотного зв'язку</h2>
 
-    <form>
-        <div class="mb-3">
-            <label for="name" class="form-label">Ім'я</label>
-            <input type="text" class="form-control" id="name" name="name" required>
-        </div>
+    <form method="POST" action="{{ url_for('contacts') }}">
+        {{ form.hidden_tag() }}
 
-        <div class="mb-3">
-            <label for="email" class="form-label">Email</label>
-            <input type="email" class="form-control" id="email" name="email" required>
-        </div>
+        {{ render_field(form.name) }}
+        {{ render_field(form.email) }}
+        {{ render_field(form.phone) }}
+        {{ render_field(form.subject, "form-select") }}
+        {{ render_field(form.message) }}
 
-        <div class="mb-3">
-            <label for="message" class="form-label">
-                Повідомлення
-            </label>
-
-            <textarea class="form-control" id="message" name="message" rows="4" required></textarea>
-        </div>
-
-        <button type="button" class="btn btn-primary">Надіслати</button>
+        {{ form.submit(class="btn btn-primary") }}
     </form>
 </section>
 

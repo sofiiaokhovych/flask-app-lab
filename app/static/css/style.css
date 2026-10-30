@@ -437,6 +437,39 @@ body.profile-page-light main {
     background-color: #ffffff;
 }
 
+.contact-form {
+    max-width: 600px;
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+.contact-form h2 {
+    color: #504080;
+    font-size: 24px;
+}
+
+.contact-form .form-label {
+    font-weight: 500;
+    color: #333333;
+}
+
+.contact-form .form-control:focus,
+.contact-form .form-select:focus {
+    border-color: #6850a0;
+    box-shadow: 0 0 0 0.2rem rgba(104, 80, 160, 0.15);
+}
+
+.contact-form .btn-primary {
+    background-color: #6850a0;
+    border-color: #6850a0;
+}
+
+.contact-form .btn-primary:hover {
+    background-color: #504080;
+    border-color: #504080;
+}
 
 @media (max-width: 600px) {
     .about-content {

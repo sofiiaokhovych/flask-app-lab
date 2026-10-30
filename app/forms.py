@@ -26,7 +26,7 @@ class ContactForm(FlaskForm):
             DataRequired(message="Введіть номер телефону."),
             Regexp(
                 r"^\+380\d{9}$",
-                message="Формат телефону: +380XXXXXXXXX."
+                message="Формат телефону: +380XXXXXXXXX"
             )
         ]
     )
