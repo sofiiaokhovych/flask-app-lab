@@ -1,5 +1,6 @@
 from flask import render_template, abort
 from . import products_bp
+from .storage import products_table
 
 products = [
     {
