@@ -15,7 +15,7 @@ def home():
     agent = request.user_agent
     return render_template("homepage.html", agent=agent)
 
-data_folder = Path(__file__).resolve().parent / "data"
+data_folder = Path(__file__).resolve().parent.parent / "data"
 data_folder.mkdir(exist_ok=True)
 
 contact_logger = logging.getLogger("contact_logger")
