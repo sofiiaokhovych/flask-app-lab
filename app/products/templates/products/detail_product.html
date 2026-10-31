@@ -1,25 +1,45 @@
 {% extends "base.html" %}
 
-{% block title %}{{ product.name }}{% endblock %}
-
 {% block content %}
-    <div class="product-detail">
-        <h1>{{ product.name }}</h1>
+<div class="container my-4">
+    <h1 class="mb-4">{{ product.name }}</h1>
 
-        <p><strong>ID товару:</strong> {{ product.id }}</p>
+    <div class="card">
+        <div class="card-body">
 
-        <p><strong>Опис:</strong></p>
-        <p>{{ product.content }}</p>
+            {% if product.image %}
+                <img src="{{ url_for('products.static', filename=product.image) }}"
+                     alt="{{ product.name }}"
+                     class="product-detail-image mb-3">
+            {% endif %}
 
-        <p>
-            <strong>Ціна:</strong>
-            {{ product.price }} $
-        </p>
+            <p><strong>ID:</strong> {{ product.id }}</p>
+            <p><strong>Назва:</strong> {{ product.name }}</p>
+            <p><strong>Опис:</strong> {{ product.content }}</p>
+            <p><strong>Категорія:</strong> {{ product.category }}</p>
+            <p><strong>Ціна:</strong> {{ "%.2f"|format(product.price) }} грн</p>
+            <p><strong>Кількість:</strong> {{ product.quantity }}</p>
+            <p><strong>Дата створення:</strong> {{ product.created_at }}</p>
 
-        <a
-            href="{{ url_for('products.all_products') }}"
-            class="btn btn-primary">
-            Назад до товарів
-        </a>
+            <a href="{{ url_for('products.edit_product', id=product.id) }}"
+               class="btn btn-primary">
+                Редагувати
+            </a>
+
+            <form method="POST"
+                  action="{{ url_for('products.remove_product', id=product.id) }}"
+                  class="d-inline"
+                  onsubmit="return confirm('Ви впевнені, що хочете видалити цей товар?');">
+
+                {{ delete_form.hidden_tag() }}
+
+                {{ delete_form.submit(class="btn btn-danger") }}
+            </form>
+
+            <a href="{{ url_for('products.all_products') }}" class="btn btn-secondary">
+                Назад
+            </a>
+        </div>
     </div>
+</div>
 {% endblock %}

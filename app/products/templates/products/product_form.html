@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container my-4">
+    <h1 class="mb-4">{{ title }}</h1>
+
+    <form method="POST" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+
+        <div class="mb-3">
+            {{ form.name.label(class="form-label") }}
+            {{ form.name(class="form-control") }}
+
+            {% for error in form.name.errors %}
+                <small class="text-danger">{{ error }}</small>
+            {% endfor %}
+        </div>
+
+        <div class="mb-3">
+            {{ form.content.label(class="form-label") }}
+            {{ form.content(class="form-control") }}
+
+            {% for error in form.content.errors %}
+                <small class="text-danger">{{ error }}</small>
+            {% endfor %}
+        </div>
+
+        <div class="mb-3">
+            {{ form.price.label(class="form-label") }}
+            {{ form.price(class="form-control", step="0.01", min="0.01") }}
+
+            {% for error in form.price.errors %}
+                <small class="text-danger">{{ error }}</small>
+            {% endfor %}
+        </div>
+
+        <div class="mb-3">
+            {{ form.category.label(class="form-label") }}
+            {{ form.category(class="form-select") }}
+
+            {% for error in form.category.errors %}
+                <small class="text-danger">{{ error }}</small>
+            {% endfor %}
+        </div>
+
+        <div class="mb-3">
+            {{ form.quantity.label(class="form-label") }}
+            {{ form.quantity(class="form-control", min="0", step="1") }}
+
+            {% for error in form.quantity.errors %}
+                <small class="text-danger">{{ error }}</small>
+            {% endfor %}
+        </div>
+
+        <div class="mb-3">
+            {{ form.image.label(class="form-label") }}
+            {{ form.image(class="form-control", accept=".jpg,.jpeg,.png,.webp") }}
+
+            {% for error in form.image.errors %}
+                <small class="text-danger">{{ error }}</small>
+            {% endfor %}
+        </div>
+
+        {% if product is defined and product.image %}
+            <p>Поточне зображення:</p>
+            <img src="{{ url_for('static', filename=product.image) }}"
+                 alt="{{ product.name }}"
+                 width="150"
+                 class="mb-3">
+
+            <p class="text-muted">
+                Якщо не вибирати нове зображення, залишиться попереднє.
+            </p>
+        {% endif %}
+
+        <div class="mt-4">
+            {{ form.submit(class="btn btn-primary") }}
+
+            <a href="{{ url_for('products.all_products') }}"
+               class="btn btn-secondary">
+                Скасувати
+            </a>
+        </div>
+    </form>
+</div>
+{% endblock %}

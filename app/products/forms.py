@@ -1,6 +1,8 @@
 from flask_wtf import FlaskForm
-from wtforms import (StringField, TextAreaField, DecimalField, SelectField, IntegerField, FileField, SubmitField)
-from wtforms.validators import (DataRequired, Length, NumberRange, InputRequired)
+from wtforms import StringField, TextAreaField, DecimalField, SelectField, IntegerField, FileField, SubmitField
+from wtforms.validators import DataRequired, Length, NumberRange, InputRequired
+from decimal import Decimal
+from flask_wtf.file import FileAllowed
 
 
 class ProductForm(FlaskForm):
@@ -25,7 +27,7 @@ class ProductForm(FlaskForm):
         places=2,
         validators=[
             InputRequired(message="Введіть ціну."),
-            NumberRange(min=0.01, message="Ціна повинна бути більшою за 0.")
+            NumberRange(min=Decimal("0.01"), message="Ціна повинна бути більшою за 0.")
         ]
     )
 
@@ -34,7 +36,7 @@ class ProductForm(FlaskForm):
         choices=[
             ("laptop", "Ноутбук"),
             ("phone", "Телефон"),
-            ("pc", "Комп'ютери"),
+            ("tablet", "Планшет"),
             ("other", "Інше")
         ],
         validators=[
@@ -50,6 +52,14 @@ class ProductForm(FlaskForm):
         ]
     )
 
-    image = FileField("Зображення товару")
+    image = FileField(
+        "Зображення",
+        validators=[
+            FileAllowed(["jpg", "jpeg", "png"], message="Дозволені лише JPG, PNG або JPEG.")
+        ]
+    )
 
     submit = SubmitField("Зберегти товар")
+
+class DeleteProductForm(FlaskForm):
+    submit = SubmitField("Видалити")
