@@ -120,12 +120,7 @@ def edit_product(id):
         form.category.data = product["category"]
         form.quantity.data = product["quantity"]
 
-    return render_template(
-        "product_form.html",
-        form=form,
-        title="Редагування товару",
-        product=product
-    )
+    return render_template("product_form.html", form=form, title="Редагування товару", product=product)
 
 
 @products_bp.route("/<int:id>/delete", methods=["POST"])
