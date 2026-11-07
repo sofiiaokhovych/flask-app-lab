@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% from "macros/form_macros.html" import render_field %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h2>{{ title }}</h2>
+    </div>
+    <div class="card-body">
+        <form method="POST" novalidate>
+            {{ form.hidden_tag() }}
+            {{ render_field(form.title) }}
+            {{ render_field(form.content) }}
+            {{ render_field(form.is_active, class_name="form-check-input") }}
+            {{ render_field(form.publish_date) }}
+            {{ render_field(form.category, class_name="form-select") }}
+            {{ form.submit(class="btn btn-primary") }}
+        </form>
+    </div>
+    <div class="card-footer">
+        <a href="{{ url_for('posts.all_posts') }}" class="btn btn-secondary">Return to Posts</a>
+    </div>
+</div>
+{% endblock %}

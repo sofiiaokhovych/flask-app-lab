@@ -28,7 +28,14 @@
                         Контакти
                     </a>
                 </li>
-                                <li class="nav-item">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('posts.all_posts') }}">
+                        Пости
+                    </a>
+                </li>
+
+                <li class="nav-item">
                     <a class="nav-link" href="{{ url_for('users.profile') }}">
                         Профіль
                     </a>
@@ -38,6 +45,7 @@
                     <a class="nav-link" href="{{ url_for('users.login') }}">
                         Вхід
                     </a>
+                </li>
             </ul>
         </div>
     </div>
