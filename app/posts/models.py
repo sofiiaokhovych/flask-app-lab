@@ -1,6 +1,6 @@
 from datetime import datetime
 from typing import Optional
-from sqlalchemy import String, Text, DateTime, Enum
+from sqlalchemy import String, Text, DateTime, Enum, Boolean
 from sqlalchemy.orm import Mapped, mapped_column
 
 from app import db
@@ -16,6 +16,8 @@ class Post(db.Model):
     category: Mapped[Optional[str]] = mapped_column(
         Enum("news", "publication", "tech", "other", name="post_category")
     )
+    is_active: Mapped[Optional[bool]] = mapped_column(Boolean, default=True)
+    author: Mapped[Optional[str]] = mapped_column(String(20), default="Anonymous")
 
     def __repr__(self):
         return f"<Post(title={self.title})>"
