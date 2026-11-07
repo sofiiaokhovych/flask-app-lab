@@ -1,15 +1,21 @@
 {% extends "base.html" %}
 
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('posts.static', filename='css/posts.css') }}">
+{% endblock %}
+
 {% block content %}
-<div class="card">
+<div class="card post-card">
+    <img src="{{ url_for('posts.static', filename='img/default.jpg') }}"
+         class="card-img-top post-detail-img" alt="Post image">
     <div class="card-body">
         <h2 class="card-title">{{ post.title }}</h2>
-        <p class="text-muted">
+        <p class="post-meta">
             Author: {{ post.author or 'Anonymous' }} |
-            Category: {{ post.category }} |
+            Category: {{ post.category or '-' }} |
             {{ post.posted.strftime('%Y-%m-%d %H:%M') }}
         </p>
-        <p class="card-text">{{ post.content }}</p>
+        <p class="card-text post-content">{{ post.content }}</p>
     </div>
     <div class="card-footer">
         <a href="{{ url_for('posts.edit_post', id=post.id) }}" class="btn btn-warning">Edit</a>

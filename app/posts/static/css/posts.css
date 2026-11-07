@@ -1,0 +1,44 @@
+.posts-heading {
+    background-color: #c6a6ff;
+    padding: 8px 16px;
+    margin-bottom: 24px;
+    border-radius: 4px;
+}
+
+.post-card {
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.post-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.post-card-img {
+    height: 150px;
+    object-fit: cover;
+    width: 100%;
+}
+
+.post-meta {
+    font-size: 0.85rem;
+    color: #6c757d;
+}
+
+.btn-add-post {
+    font-weight: 600;
+    padding: 8px 20px;
+}
+
+.post-detail-img {
+    max-height: 250px;
+    object-fit: cover;
+    width: 100%;
+}
+
+.post-content {
+    white-space: pre-line;
+}
