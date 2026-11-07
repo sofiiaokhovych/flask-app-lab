@@ -1,16 +1,16 @@
-from flask import request, redirect, url_for, render_template, flash
-from app import app
+from flask import request, redirect, url_for, render_template, flash, Blueprint
 from app.forms import ContactForm
 import logging
 from pathlib import Path
 
+main_bp = Blueprint("main", __name__)
 
-@app.route("/")
+@main_bp.route("/")
 def resume():
     return render_template("index.html", title='Резюме')
 
 
-@app.route("/homepage")
+@main_bp.route("/homepage")
 def home():
     agent = request.user_agent
     return render_template("homepage.html", agent=agent)
@@ -26,7 +26,7 @@ if not contact_logger.handlers:
     handler.setFormatter(logging.Formatter("%(asctime)s - %(message)s"))
     contact_logger.addHandler(handler)
 
-@app.route("/contacts", methods=["GET", "POST"])
+@main_bp.route("/contacts", methods=["GET", "POST"])
 def contacts():
     form = ContactForm()
 
@@ -42,7 +42,7 @@ def contacts():
             )
 
             flash("Повідомлення успішно надіслано!", "success")
-            return redirect(url_for("contacts"))
+            return redirect(url_for("main.contacts"))
 
         except OSError:
             flash("Помилка під час збереження повідомлення.", "danger")

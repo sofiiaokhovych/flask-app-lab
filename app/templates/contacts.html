@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% from "form_macros.html" import render_field %}
+{% from "macros/form_macros.html" import render_field %}
 
 {% block content %}
 
@@ -32,7 +32,7 @@
 <section class="contact-form mx-auto mb-4">
     <h2>Форма зворотного зв'язку</h2>
 
-    <form method="POST" action="{{ url_for('contacts') }}">
+    <form method="POST" action="{{ url_for('main.contacts') }}">
         {{ form.hidden_tag() }}
 
         {{ render_field(form.name) }}
