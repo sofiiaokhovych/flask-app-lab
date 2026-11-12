@@ -20,14 +20,10 @@ def all_posts():
 def add_post():
     form = PostForm()
     if form.validate_on_submit():
-        new_post = Post(
-            title=form.title.data,
-            content=form.content.data,
-            is_active=form.is_active.data,
-            posted=form.publish_date.data,
-            category=form.category.data,
-            author=session.get("username", "Anonymous"),
-        )
+        new_post = Post()
+        form.populate_obj(new_post)
+        new_post.posted = form.publish_date.data
+        new_post.author = session.get("username", "Anonymous")
         db.session.add(new_post)
         db.session.commit()
         flash("Post added successfully", "success")
