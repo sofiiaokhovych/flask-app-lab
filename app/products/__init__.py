@@ -12,4 +12,5 @@ products_bp = Blueprint("products",
 def set_upload_limit(state):
     state.app.config["MAX_CONTENT_LENGTH"] = 5 * 1024 * 1024
 
+from app.products import models
 from app.products import views
