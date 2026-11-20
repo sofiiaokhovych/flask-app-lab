@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import Optional
-from sqlalchemy import String, Text, DateTime, Enum, Boolean
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy import String, Text, DateTime, Enum, Boolean, ForeignKey
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app import db
 
@@ -17,7 +17,9 @@ class Post(db.Model):
         Enum("news", "publication", "tech", "other", name="post_category")
     )
     is_active: Mapped[Optional[bool]] = mapped_column(Boolean, default=True)
-    author: Mapped[Optional[str]] = mapped_column(String(20), default="Anonymous")
+
+    user_id: Mapped[Optional[int]] = mapped_column(ForeignKey("users.id"))
+    user: Mapped[Optional["User"]] = relationship(back_populates="posts")
 
     def __repr__(self):
         return f"<Post(title={self.title})>"

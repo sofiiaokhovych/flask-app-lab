@@ -1,4 +1,4 @@
-from flask import request, render_template, redirect, url_for, flash, session
+from flask import request, render_template, redirect, url_for, flash
 from app import db
 from . import post_bp
 from .models import Post
@@ -23,7 +23,6 @@ def add_post():
         new_post = Post()
         form.populate_obj(new_post)
         new_post.posted = form.publish_date.data
-        new_post.author = session.get("username", "Anonymous")
         db.session.add(new_post)
         db.session.commit()
         flash("Post added successfully", "success")

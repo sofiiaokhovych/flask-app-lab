@@ -11,7 +11,7 @@
     <div class="card-body">
         <h2 class="card-title">{{ post.title }}</h2>
         <p class="post-meta">
-            Author: {{ post.author or 'Anonymous' }} |
+            Author: {{ post.user.username if post.user else 'Anonymous' }} |
             Category: {{ post.category or '-' }} |
             {{ post.posted.strftime('%Y-%m-%d %H:%M') }}
         </p>
