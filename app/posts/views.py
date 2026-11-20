@@ -23,6 +23,7 @@ def add_post():
         new_post = Post()
         form.populate_obj(new_post)
         new_post.posted = form.publish_date.data
+        new_post.user_id = form.author_id.data 
         db.session.add(new_post)
         db.session.commit()
         flash("Post added successfully", "success")
@@ -43,10 +44,12 @@ def edit_post(id):
 
     if request.method == "GET":
         form.publish_date.data = post.posted
+        form.author_id.data = post.user_id 
 
     if form.validate_on_submit():
         form.populate_obj(post)
         post.posted = form.publish_date.data
+        post.user_id = form.author_id.data
         db.session.commit()
         flash("Post updated successfully", "success")
         return redirect(url_for("posts.detail_post", id=post.id))

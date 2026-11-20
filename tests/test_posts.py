@@ -3,6 +3,7 @@ from datetime import datetime
 
 from app import create_app, db
 from app.posts.models import Post
+from app.models import User
 
 
 class PostTestCase(unittest.TestCase):
@@ -11,6 +12,10 @@ class PostTestCase(unittest.TestCase):
         self.client = self.app.test_client()
         with self.app.app_context():
             db.create_all()
+            user = User(username="user1", email="user1@ex.com", password="x")
+            db.session.add(user)
+            db.session.commit()
+            self.user_id = user.id
 
     def tearDown(self):
         with self.app.app_context():
@@ -38,6 +43,7 @@ class PostTestCase(unittest.TestCase):
             "is_active": "y",
             "publish_date": "2025-01-15T10:30",
             "category": "news",
+            "author_id": str(self.user_id),
         }
         data.update(kwargs)
         return data
@@ -74,19 +80,18 @@ class PostTestCase(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertIn(b"Create a New Post", response.data)
 
-    def test_create_post_author_anonymous(self):
+    def test_create_post_with_author(self):
         self.client.post("/post/create", data=self.valid_form_data())
         with self.app.app_context():
             post = db.session.scalar(db.select(Post))
-            self.assertEqual(post.author, "Anonymous")
+            self.assertEqual(post.user_id, self.user_id)
+            self.assertEqual(post.user.username, "user1")
 
-    def test_create_post_author_from_session(self):
-        with self.client.session_transaction() as sess:
-            sess["username"] = "user1"
-        self.client.post("/post/create", data=self.valid_form_data())
+    def test_create_post_invalid_author(self):
+        response = self.client.post("/post/create", data=self.valid_form_data(author_id="999"))
+        self.assertIn(b"Enter the correct data in the form!", response.data)
         with self.app.app_context():
-            post = db.session.scalar(db.select(Post))
-            self.assertEqual(post.author, "user1")
+            self.assertEqual(db.session.scalars(db.select(Post)).all(), [])
 
     def test_create_post_invalid_data(self):
         response = self.client.post(
