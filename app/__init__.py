@@ -35,6 +35,7 @@ def create_app(config_name=None):
     from .users import user_bp
     from .products import products_bp
     from .posts import post_bp
+    from . import models
 
     app.register_blueprint(main_bp)
     app.register_blueprint(user_bp)
