@@ -15,6 +15,14 @@
             Category: {{ post.category or '-' }} |
             {{ post.posted.strftime('%Y-%m-%d %H:%M') }}
         </p>
+        <p class="post-tags">
+            Tags:
+            {% for tag in post.tags %}
+                <span class="post-tag">{{ tag.name }}</span>{% if not loop.last %} / {% endif %}
+            {% else %}
+                <span class="text-muted">no tags</span>
+            {% endfor %}
+        </p>
         <p class="card-text post-content">{{ post.content }}</p>
     </div>
     <div class="card-footer">

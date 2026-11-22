@@ -42,3 +42,17 @@
 .post-content {
     white-space: pre-line;
 }
+
+.post-tags {
+    font-size: 0.9rem;
+}
+
+.post-tag {
+    color: #aa1193;
+    font-weight: 600;
+}
+
+.post-tag:hover {
+    text-decoration: underline;
+    cursor: default;
+}
