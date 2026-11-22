@@ -1,10 +1,11 @@
 from datetime import datetime
 from flask_wtf import FlaskForm
-from wtforms import StringField, TextAreaField, BooleanField, SelectField, SubmitField
+from wtforms import StringField, TextAreaField, BooleanField, SelectField, SubmitField, SelectMultipleField
 from wtforms.fields import DateTimeLocalField
 from wtforms.validators import DataRequired, Length
 from app import db
 from app.models import User
+from .models import Tag
 
 CATEGORIES = [
     ("news", "News"),
@@ -30,9 +31,12 @@ class PostForm(FlaskForm):
     )
     category = SelectField("Category", choices=CATEGORIES, validators=[DataRequired()])
     author_id = SelectField("Author", coerce=int)
+    tags = SelectMultipleField("Tags", coerce=int)
     submit = SubmitField("Submit")
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         users = db.session.scalars(db.select(User).order_by(User.id)).all()
         self.author_id.choices = [(u.id, u.username) for u in users]
+        tags = db.session.scalars(db.select(Tag).order_by(Tag.name)).all()
+        self.tags.choices = [(t.id, t.name) for t in tags]

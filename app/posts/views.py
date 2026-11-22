@@ -1,8 +1,14 @@
 from flask import request, render_template, redirect, url_for, flash
 from app import db
 from . import post_bp
-from .models import Post
+from .models import Post, Tag
 from .forms import PostForm
+
+
+def get_selected_tags(tag_ids):
+    if not tag_ids:
+        return []
+    return list(db.session.scalars(db.select(Tag).where(Tag.id.in_(tag_ids))).all())
 
 
 @post_bp.route("")
@@ -20,10 +26,13 @@ def all_posts():
 def add_post():
     form = PostForm()
     if form.validate_on_submit():
+        tag_ids = form.tags.data
+        del form.tags
         new_post = Post()
         form.populate_obj(new_post)
         new_post.posted = form.publish_date.data
-        new_post.user_id = form.author_id.data 
+        new_post.user_id = form.author_id.data
+        new_post.tags = get_selected_tags(tag_ids)
         db.session.add(new_post)
         db.session.commit()
         flash("Post added successfully", "success")
@@ -44,12 +53,16 @@ def edit_post(id):
 
     if request.method == "GET":
         form.publish_date.data = post.posted
-        form.author_id.data = post.user_id 
+        form.author_id.data = post.user_id
+        form.tags.data = [t.id for t in post.tags]
 
     if form.validate_on_submit():
+        tag_ids = form.tags.data
+        del form.tags
         form.populate_obj(post)
         post.posted = form.publish_date.data
         post.user_id = form.author_id.data
+        post.tags = get_selected_tags(tag_ids)
         db.session.commit()
         flash("Post updated successfully", "success")
         return redirect(url_for("posts.detail_post", id=post.id))
