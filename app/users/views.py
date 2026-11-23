@@ -1,5 +1,8 @@
 from flask import request, redirect, url_for, render_template, session, flash, make_response
 from . import user_bp
+from app import db, bcrypt
+from app.models import User
+from .forms import RegistrationForm, LoginForm
 
 CORRECT_USERNAME = "user1"
 CORRECT_PASSWORD = "12345"
@@ -134,3 +137,15 @@ def change_theme(theme):
     response.set_cookie("profile_theme", theme, max_age=60 * 60 * 24 * 30)
 
     return response
+
+@user_bp.route("/register", methods=["GET", "POST"])
+def register():
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+        user = User(username=form.username.data, email=form.email.data, password=hashed_password)
+        db.session.add(user)
+        db.session.commit()
+        flash(f'Account created for {form.username.data}!', category='success')
+        return redirect(url_for('users.login'))
+    return render_template('register.html', form=form, title='Register')

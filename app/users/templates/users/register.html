@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% from "macros/form_macros.html" import render_field %}
+
+{% block content %}
+<div class="mx-auto" style="max-width: 500px;">
+    <h1 class="mb-4">Реєстрація</h1>
+    <form method="POST" action="{{ url_for('users.register') }}">
+        {{ form.hidden_tag() }}
+        {{ render_field(form.username) }}
+        {{ render_field(form.email) }}
+        {{ render_field(form.password) }}
+        {{ render_field(form.confirm_password) }}
+        {{ form.submit(class="btn btn-success") }}
+    </form>
+</div>
+{% endblock %}
