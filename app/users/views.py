@@ -4,9 +4,6 @@ from app import db, bcrypt
 from app.models import User
 from .forms import RegistrationForm, LoginForm
 
-CORRECT_USERNAME = "user1"
-CORRECT_PASSWORD = "12345"
-
 @user_bp.route("/hi/<string:name>")
 def greetings(name):
     name = name.upper()
@@ -26,19 +23,23 @@ def admin():
 
 @user_bp.route("/login", methods=["GET", "POST"])
 def login():
-    if request.method == "POST":
-        username = request.form.get("username")
-        password = request.form.get("password")
+    form = LoginForm()
+    if form.validate_on_submit():
+        email = form.email.data
+        password = form.password.data
+        user = db.session.execute(
+            db.select(User).filter_by(email=email)
+        ).scalar_one_or_none()
 
-        if username == CORRECT_USERNAME and password == CORRECT_PASSWORD:
-            session["username"] = username
-            flash("Login successful!", "success")
-            return redirect(url_for("users.profile"))
-        else:
-            flash("Wrong data! Try again!", "danger")
-            return redirect(url_for("users.login"))
+        if user and user.check_password(password):
+            session["username"] = user.username
+            session["email"] = user.email
+            flash(f"Вітаю, {user.username}! Вхід успішний", "success")
+            return redirect(url_for("users.account"))
 
-    return render_template("login.html")
+        flash("Помилка: невірний email або пароль.", "danger")
+
+    return render_template("login.html", form=form, title="Login")
 
 
 @user_bp.route("/profile")
@@ -60,6 +61,7 @@ def profile():
 @user_bp.route("/logout", methods=["POST"])
 def logout():
     session.pop("username", None)
+    session.pop("email", None)
     return redirect(url_for("users.login"))
 
 @user_bp.route("/add-cookie", methods=["POST"])
@@ -149,3 +151,17 @@ def register():
         flash(f'Account created for {form.username.data}!', category='success')
         return redirect(url_for('users.login'))
     return render_template('register.html', form=form, title='Register')
+
+@user_bp.route("/account")
+def account():
+    username = session.get("username")
+    if username is None:
+        flash("Please log in first!", "danger")
+        return redirect(url_for("users.login"))
+
+    return render_template("account.html", username=username, email=session.get("email"), title="Account")
+
+@user_bp.route("/list")
+def users_list():
+    users = db.session.scalars(db.select(User)).all()
+    return render_template("users_list.html", users=users, title="Users List")

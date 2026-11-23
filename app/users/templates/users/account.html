@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card p-4 mb-3">
+    <h2>Welcome, {{ username }}!</h2>
+    <p>You have successfully logged in to your profile.</p>
+    <p><strong>Email:</strong> {{ email }}</p>
+</div>
+
+<form action="{{ url_for('users.logout') }}" method="POST">
+    <button type="submit" class="btn btn-danger">Logout</button>
+</form>
+{% endblock %}

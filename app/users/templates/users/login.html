@@ -1,25 +1,22 @@
 {% extends "base.html" %}
-
-{% block title %}Login{% endblock %}
+{% from "macros/form_macros.html" import render_field %}
 
 {% block content %}
-
 <div class="login-container">
-    <h1>Login</h1>
+    <h1>Вхід</h1>
+    <p>Будь ласка, введіть ваш email та пароль!</p>
 
-    <form method="POST" action="{{ url_for('users.login') }}">
-        <div class="mb-3">
-            <label for="username" class="form-label">User name</label>
-            <input type="text" class="form-control" id="username" name="username" required>
+    <form method="POST" action="{{ url_for('users.login') }}" novalidate>
+        {{ form.hidden_tag() }}
+        {{ render_field(form.email) }}
+        {{ render_field(form.password) }}
+
+        <div class="form-check mb-3">
+            {{ form.remember(class="form-check-input") }}
+            {{ form.remember.label(class="form-check-label") }}
         </div>
 
-        <div class="mb-3">
-            <label for="password" class="form-label">Password</label>
-            <input type="password" class="form-control" id="password" name="password" required>
-        </div>
-
-        <button type="submit" class="btn btn-primary">Sign in</button>
+        {{ form.submit(class="btn btn-primary") }}
     </form>
 </div>
-
 {% endblock %}

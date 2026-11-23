@@ -1,7 +1,7 @@
 from sqlalchemy import String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from app import db
+from app import db, bcrypt
 
 
 class User(db.Model):
@@ -16,3 +16,6 @@ class User(db.Model):
 
     def __repr__(self) -> str:
         return f"User('{self.email}')"
+
+    def check_password(self, password):
+        return bcrypt.check_password_hash(self.password, password)
