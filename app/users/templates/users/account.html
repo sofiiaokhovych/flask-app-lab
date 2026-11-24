@@ -2,12 +2,10 @@
 
 {% block content %}
 <div class="card p-4 mb-3">
-    <h2>Welcome, {{ username }}!</h2>
+    <h2>Welcome, {{ user.username }}!</h2>
     <p>You have successfully logged in to your profile.</p>
-    <p><strong>Email:</strong> {{ email }}</p>
+    <p><strong>Email:</strong> {{ user.email }}</p>
 </div>
 
-<form action="{{ url_for('users.logout') }}" method="POST">
-    <button type="submit" class="btn btn-danger">Logout</button>
-</form>
+<a href="{{ url_for('users.logout') }}" class="btn btn-danger">Logout</a>
 {% endblock %}

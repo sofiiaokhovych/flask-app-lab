@@ -1,10 +1,15 @@
 from sqlalchemy import String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
+from flask_login import UserMixin
+from app import db, bcrypt, login_manager
 
-from app import db, bcrypt
+
+@login_manager.user_loader
+def user_loader(user_id):
+    return db.session.get(User, int(user_id))
 
 
-class User(db.Model):
+class User(db.Model, UserMixin):
     __tablename__ = "users"
 
     id: Mapped[int] = mapped_column(primary_key=True)

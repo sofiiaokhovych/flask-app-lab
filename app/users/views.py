@@ -3,6 +3,7 @@ from . import user_bp
 from app import db, bcrypt
 from app.models import User
 from .forms import RegistrationForm, LoginForm
+from flask_login import login_user, login_required, current_user, logout_user
 
 @user_bp.route("/hi/<string:name>")
 def greetings(name):
@@ -23,24 +24,26 @@ def admin():
 
 @user_bp.route("/login", methods=["GET", "POST"])
 def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('users.account'))
+
     form = LoginForm()
     if form.validate_on_submit():
         email = form.email.data
         password = form.password.data
+
         user = db.session.execute(
             db.select(User).filter_by(email=email)
         ).scalar_one_or_none()
 
         if user and user.check_password(password):
-            session["username"] = user.username
-            session["email"] = user.email
-            flash(f"Вітаю, {user.username}! Вхід успішний", "success")
-            return redirect(url_for("users.account"))
+            login_user(user, remember=form.remember.data)
+            flash('You logged in successfully!', 'success')
+            return redirect(url_for('users.account'))
 
-        flash("Помилка: невірний email або пароль.", "danger")
+        flash("Error: Invalid email or password.", "danger")
 
     return render_template("login.html", form=form, title="Login")
-
 
 @user_bp.route("/profile")
 def profile():
@@ -58,10 +61,10 @@ def profile():
 
     return render_template("profile.html", username=username, cookies=cookies, theme=theme)
 
-@user_bp.route("/logout", methods=["POST"])
+@user_bp.route('/logout', methods=["GET", "POST"])
 def logout():
-    session.pop("username", None)
-    session.pop("email", None)
+    logout_user()
+    flash("You have successfully logged out.", "info")
     return redirect(url_for("users.login"))
 
 @user_bp.route("/add-cookie", methods=["POST"])
@@ -153,15 +156,12 @@ def register():
     return render_template('register.html', form=form, title='Register')
 
 @user_bp.route("/account")
+@login_required
 def account():
-    username = session.get("username")
-    if username is None:
-        flash("Please log in first!", "danger")
-        return redirect(url_for("users.login"))
-
-    return render_template("account.html", username=username, email=session.get("email"), title="Account")
+    return render_template("account.html", user=current_user, title="Account")
 
 @user_bp.route("/list")
+@login_required
 def users_list():
     users = db.session.scalars(db.select(User)).all()
     return render_template("users_list.html", users=users, title="Users List")
