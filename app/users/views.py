@@ -64,7 +64,7 @@ def profile():
 @user_bp.route('/logout', methods=["GET", "POST"])
 def logout():
     logout_user()
-    flash("You have successfully logged out.", "info")
+    flash("You have successfully logged out.", "success")
     return redirect(url_for("users.login"))
 
 @user_bp.route("/add-cookie", methods=["POST"])
@@ -145,6 +145,9 @@ def change_theme(theme):
 
 @user_bp.route("/register", methods=["GET", "POST"])
 def register():
+    if current_user.is_authenticated:
+        return redirect(url_for('users.account'))
+    
     form = RegistrationForm()
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
